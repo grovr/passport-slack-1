@@ -25,6 +25,12 @@ function wrapVerify(slackAuthOptions) {
     if (teamName) team.name = teamName;
     const scopes = new Set(params.scope.split(','));
     const extra = {};
+    if (this.slackAuthOptions.version === 'v2') {
+      extra.bot = {
+        id: 'asdf',
+        accessToken
+      };
+    }
     if (params.bot) {
       extra.bot = {
         id: params.bot.bot_user_id,
@@ -109,9 +115,15 @@ class SlackStrategy extends OAuth2Strategy {
   constructor(options, verify) {
     if (!options.clientSecret) { throw new TypeError('SlackStrategy requires a clientSecret option'); }
     if (!isFunction(verify)) { throw new TypeError('SlackStrategy requires a verify callback'); }
+    let tokenURL = 'https://slack.com/api/oauth.access';
+    let authorizationURL = 'https://slack.com/oauth/authorize';
+    if (options.version === 'v2') {
+      tokenURL = 'https://slack.com/api/oauth.v2.access';
+      authorizationURL = 'https://slack.com/oauth/v2/authorize';
+    }
     const mergedOptions = defaults(options || {}, {
-      tokenURL: 'https://slack.com/api/oauth.access',
-      authorizationURL: 'https://slack.com/oauth/authorize',
+      tokenURL,
+      authorizationURL,
       profileURL: 'https://slack.com/api/users.identity',
       passReqToCallback: false,
       skipUserProfile: false,
@@ -123,6 +135,7 @@ class SlackStrategy extends OAuth2Strategy {
       profileURL: mergedOptions.profileURL,
       team: mergedOptions.team,
       verify,
+      version,
     };
     // We saved the user's preference about whether to pass the request to the callback, and now to
     // simplify the implementation of wrapVerify, we tell the super class that we always want the
