@@ -56,7 +56,7 @@ function wrapVerify(slackAuthOptions) {
     if (teamName) team.name = teamName;
     var scopes = new Set(params.scope.split(','));
     var extra = {};
-    if (param.token_type === 'bot') {
+    if (params.token_type === 'bot') {
       extra.bot = {
         id: params.bot_user_id,
         accessToken: accessToken
