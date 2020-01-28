@@ -56,9 +56,9 @@ function wrapVerify(slackAuthOptions) {
     if (teamName) team.name = teamName;
     var scopes = new Set(params.scope.split(','));
     var extra = {};
-    if (this.slackAuthOptions.version === 'v2') {
+    if (param.token_type === 'bot') {
       extra.bot = {
-        id: 'asdf',
+        id: params.bot_user_id,
         accessToken: accessToken
       };
     }
@@ -158,8 +158,7 @@ var SlackStrategy = function (_OAuth2Strategy) {
       passReqToCallback: mergedOptions.passReqToCallback,
       profileURL: mergedOptions.profileURL,
       team: mergedOptions.team,
-      verify: verify,
-      version: version
+      verify: verify
     };
     // We saved the user's preference about whether to pass the request to the callback, and now to
     // simplify the implementation of wrapVerify, we tell the super class that we always want the

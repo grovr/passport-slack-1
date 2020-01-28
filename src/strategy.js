@@ -135,7 +135,6 @@ class SlackStrategy extends OAuth2Strategy {
       profileURL: mergedOptions.profileURL,
       team: mergedOptions.team,
       verify,
-      version: options.version,
     };
     // We saved the user's preference about whether to pass the request to the callback, and now to
     // simplify the implementation of wrapVerify, we tell the super class that we always want the
