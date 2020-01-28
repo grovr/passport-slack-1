@@ -1,9 +1,9 @@
 {
-  "name": "@aoberoi/passport-slack",
-  "version": "1.0.5",
+  "name": "@devinmcinnis/passport-slack",
+  "version": "1.0.6",
   "description": "Slack authentication strategy for Passport",
   "main": "./dist/index.js",
-  "repository": "https://github.com/aoberoi/passport-slack.git",
+  "repository": "https://github.com/devinmcinnis/passport-slack.git",
   "author": "Ankur Oberoi <aoberoi@gmail.com>",
   "license": "MIT",
   "engines": {
