@@ -49,6 +49,9 @@ function wrapVerify(slackAuthOptions) {
         extra.incomingWebhook.channel.id = params.incoming_webhook.channel_id;
       }
     }
+    if (!profile) {
+      profile = params.authed_user;
+    }
     if (!slackAuthOptions.passReqToCallback) {
       slackAuthOptions.verify(
         accessToken,
