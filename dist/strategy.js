@@ -49,6 +49,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  */
 function wrapVerify(slackAuthOptions) {
   return function _verify(req, accessToken, refreshToken, params, profile, verified) {
+    if (!params.ok) {
+      throw new Error(params.error);
+    }
     var team = {
       id: params.team_id || params.team && params.team.id
     };
@@ -79,6 +82,9 @@ function wrapVerify(slackAuthOptions) {
       if (params.incoming_webhook.channel_id) {
         extra.incomingWebhook.channel.id = params.incoming_webhook.channel_id;
       }
+    }
+    if (params.authed_user) {
+      extra.authedUser = params.authed_user;
     }
     if (!slackAuthOptions.passReqToCallback) {
       slackAuthOptions.verify(accessToken, scopes, team, extra, profile, verified);
@@ -127,6 +133,7 @@ var SlackStrategy = function (_OAuth2Strategy) {
    * @param {string} [options.sessionKey] - The key for this strategy to use in a state store.
    * @param {Store} [options.store] - **TODO**
    * @param {boolean} [options.trustProxy]
+   * @param {boolean} [options.version=v1] The version of OAuth from Slack
    * @param {SlackStrategy~verifyCallback} verify - The callback that creates the value to be stored
    * in `req.user`, `req.account`, or the customized `options.assignProperty`.
    */
