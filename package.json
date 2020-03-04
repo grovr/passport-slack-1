@@ -15,7 +15,6 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "babel-polyfill": "^6.16.0",
     "lodash.defaults": "^4.2.0",
     "lodash.isfunction": "^3.0.8",
     "lodash.pickby": "^4.6.0",

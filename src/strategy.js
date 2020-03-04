@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import OAuth2Strategy from 'passport-oauth2';
 import defaults from 'lodash.defaults';
 import pickBy from 'lodash.pickby';

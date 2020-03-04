@@ -10,7 +10,18 @@ const SlackStrategy = require('./..').default.Strategy;
 passport.use(new SlackStrategy({
   clientID: process.env.SLACK_CLIENT_ID,
   clientSecret: process.env.SLACK_CLIENT_SECRET,
+  scopes: [
+    'channels:history',
+    'calls:read',
+    'channels:read',
+    'files:read',
+    'pins:read',
+    'reminders:read',
+    'users:read',
+    'users.profile:read',
+  ],
 }, (accessToken, scopes, team, extra, profiles, done) => {
+  console.log(scopes, profiles);
   done(null, profiles.user);
 }));
 
